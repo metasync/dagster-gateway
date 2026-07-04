@@ -1,0 +1,44 @@
+{
+  "environment": "prd",
+  "displayName": "Production Dagster Gateway",
+  "issuer": "https://idp.apps.metasync.cc/realms/prd",
+  "clientId": "prd-dagster-gateway",
+  "authMode": "oidc",
+  "postLogoutRedirectUri": "https://dagster-gateway.apps.metasync.cc/",
+  "platforms": [
+    {
+      "id": "prd-pilot-dagster-platform",
+      "name": "Production Dagster Pilot",
+      "team": "pilot",
+      "environment": "prd",
+      "url": "https://pilot-dagster-platform.apps.metasync.cc",
+      "requiredGroups": ["dagster-access"],
+      "description": "Illustrative production platform entry for the initial shared-access rollout."
+    },
+    {
+      "id": "prd-dwt-dagster-platform",
+      "name": "Production DWT Dagster",
+      "team": "dwt",
+      "environment": "prd",
+      "url": "https://dwt-dagster-platform.apps.metasync.cc",
+      "requiredGroups": ["dagster-team-dwt"],
+      "description": "Illustrative team-scoped production platform entry."
+    }
+  ],
+  "demoUsers": [
+    {
+      "id": "prd-alice-dagster",
+      "name": "Alice Dagster",
+      "username": "alice.dagster",
+      "email": "alice.dagster@example.invalid",
+      "groups": ["dagster-access"]
+    },
+    {
+      "id": "prd-dwt-owner",
+      "name": "DWT Owner",
+      "username": "dwt.owner",
+      "email": "dwt.owner@example.invalid",
+      "groups": ["dagster-access", "dagster-team-dwt"]
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "environment": "snd",
+  "displayName": "Sandbox Dagster Gateway",
+  "issuer": "https://idp.apps.metasync.cc/realms/snd",
+  "clientId": "snd-dagster-gateway",
+  "authMode": "oidc",
+  "postLogoutRedirectUri": "https://snd-dagster-gateway.apps.metasync.cc/",
+  "platforms": [
+    {
+      "id": "snd-pilot-dagster-platform",
+      "name": "Sandbox Dagster Pilot",
+      "team": "pilot",
+      "environment": "snd",
+      "url": "https://snd-pilot-dagster-platform.apps.metasync.cc",
+      "requiredGroups": ["dagster-access"],
+      "description": "Initial sandbox platform using the current bootstrap access group."
+    },
+    {
+      "id": "snd-dwt-dagster-platform",
+      "name": "DWT Sandbox Dagster",
+      "team": "dwt",
+      "environment": "snd",
+      "url": "https://snd-dwt-dagster-platform.apps.metasync.cc",
+      "requiredGroups": ["dagster-team-dwt"],
+      "description": "Example team-scoped platform entry for the later per-team rollout."
+    }
+  ],
+  "demoUsers": [
+    {
+      "id": "alice-dagster",
+      "name": "Alice Dagster",
+      "username": "alice.dagster",
+      "email": "alice.dagster@example.invalid",
+      "groups": ["dagster-access"]
+    },
+    {
+      "id": "blocked-dagster",
+      "name": "Blocked Dagster",
+      "username": "blocked.dagster",
+      "email": "blocked.dagster@example.invalid",
+      "groups": []
+    },
+    {
+      "id": "dwt-owner",
+      "name": "DWT Owner",
+      "username": "dwt.owner",
+      "email": "dwt.owner@example.invalid",
+      "groups": ["dagster-access", "dagster-team-dwt"]
+    }
+  ]
+}
