@@ -1,5 +1,4 @@
 include Makefile.env
--include Makefile.local.env
 export
 
 VERSION ?= $(shell node -p "require('./package.json').version")
@@ -50,11 +49,11 @@ verify-luban-ci: ## Ensure luban-ci exists at LUBAN_CI_ROOT before syncing relea
 		exit 1; \
 	fi
 
-login: ## Login to the image registry using QUAY_USERNAME and QUAY_PASSWORD if provided
-	@if [ -n "$(QUAY_USERNAME)" ] && [ -n "$(QUAY_PASSWORD)" ]; then \
-		echo "$(QUAY_PASSWORD)" | docker login -u "$(QUAY_USERNAME)" --password-stdin $(REGISTRY_SERVER); \
+login: ## Login to the image registry using REGISTRY_USERNAME and REGISTRY_PASSWORD if provided
+	@if [ -n "$(REGISTRY_USERNAME)" ] && [ -n "$(REGISTRY_PASSWORD)" ]; then \
+		echo "$(REGISTRY_PASSWORD)" | docker login -u "$(REGISTRY_USERNAME)" --password-stdin $(REGISTRY_SERVER); \
 	else \
-		echo "QUAY_USERNAME/QUAY_PASSWORD not set; relying on existing docker credentials"; \
+		echo "Registry credentials not set; relying on existing docker credentials"; \
 	fi
 
 build-image: validate-version ## Build the container image tagged with the package semantic version

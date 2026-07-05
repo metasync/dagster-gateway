@@ -6,6 +6,11 @@ All notable changes to `dagster-gateway` will be documented in this file.
 
 ## [0.1.1] - 2026-07-05
 
+### Changed
+
+- Switched the default release target to the shared Harbor runtime repository at `harbor.luban.metasync.cc/luban-ci/dagster-gateway`.
+- Simplified local registry authentication by loading ignored `secrets/*.env` files and standardizing the release login flow on `REGISTRY_USERNAME` and `REGISTRY_PASSWORD`.
+
 ### Fixed
 
 - Enforced that every platform entry matches the registry environment during config parsing.

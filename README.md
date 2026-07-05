@@ -68,9 +68,27 @@ make bump-minor
 make bump-major
 ```
 
-`make sync-version` updates `../luban-ci/manifests/config/luban-dagster-gateway-config.yaml` so `gateway_image_tag` stays aligned with the app version and Quay image tag.
+`make sync-version` updates `../luban-ci/manifests/config/luban-dagster-gateway-config.yaml` so `gateway_image_tag` stays aligned with the app version and runtime image tag.
 
 `make sync-version` and `make release` expect `luban-ci` to be checked out at `../luban-ci` by default. Override `LUBAN_CI_ROOT` if your local workspace uses a different path.
+
+The default release settings target Harbor:
+
+```bash
+REGISTRY_SERVER=harbor.luban.metasync.cc
+REGISTRY_NAMESPACE=luban-ci
+```
+
+This Harbor repository is intended to be the shared runtime image source for all Dagster Gateway deployments.
+
+To keep Harbor writer credentials local to this repository, create `secrets/harbor.env` with:
+
+```bash
+REGISTRY_USERNAME=robot$...
+REGISTRY_PASSWORD=...
+```
+
+`Makefile.env` includes that file only when it exists, and `.gitignore` excludes it from version control.
 
 ## Runtime Configuration
 
