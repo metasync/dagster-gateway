@@ -4,6 +4,8 @@ All notable changes to `dagster-gateway` will be documented in this file.
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-07-05
+
 ### Fixed
 
 - Enforced that every platform entry matches the registry environment during config parsing.
