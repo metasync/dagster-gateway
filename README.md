@@ -18,7 +18,7 @@
 npm install
 ```
 
-2. Copy the environment file if you want to override defaults:
+2. Copy the environment file only if you want to pin explicit local env values:
 
 ```bash
 cp .env.example .env
@@ -30,7 +30,7 @@ cp .env.example .env
 npm run dev
 ```
 
-By default the project loads `/config/snd.registry.local.json` on `localhost`. That local registry targets the public sandbox issuer (`https://idp.apps.metasync.cc/realms/snd`) and uses `http://localhost:5173/` as the logout return URI.
+By default the project loads `/config/snd.registry.local.json` on `localhost`. That committed local registry now defaults to `authMode: "demo"`, so a fresh `npm run dev` opens the demo-preview flow without any extra setup. It still carries the sandbox issuer (`https://idp.apps.metasync.cc/realms/snd`) and `http://localhost:5173/` logout URI so you can switch the same local registry back to OIDC when needed.
 
 Supported registry files:
 
@@ -87,6 +87,8 @@ When `VITE_GATEWAY_REGISTRY_URL` is unset, the app resolves the default registry
 - `localhost` / `127.0.0.1` -> `/config/snd.registry.local.json`
 - `snd-*` hosts -> `/config/snd.registry.public.json`
 - other hosts -> `/config/prd.registry.public.json`
+
+For real local OIDC testing, set `VITE_GATEWAY_AUTH_MODE=oidc` in `.env` or point `VITE_GATEWAY_REGISTRY_URL` at a registry JSON that declares `authMode: "oidc"`.
 
 Registry fields:
 

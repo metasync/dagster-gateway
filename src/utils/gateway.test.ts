@@ -61,4 +61,18 @@ describe('gateway registry helpers', () => {
       isAllowedPlatformUrl('https://evil.example.invalid', registry.platforms),
     ).toBe(false)
   })
+
+  it('rejects platform entries that do not match the registry environment', () => {
+    expect(() =>
+      parseGatewayRegistry({
+        ...registry,
+        platforms: [
+          {
+            ...registry.platforms[0],
+            environment: 'prd',
+          },
+        ],
+      }),
+    ).toThrow(/Platform environment must match registry environment/)
+  })
 })

@@ -17,7 +17,8 @@ export function IdentityPanel({
     session.profile?.name ||
     session.profile?.preferred_username ||
     session.profile?.email ||
-    'Waiting for session'
+    session.profile?.sub ||
+    (session.isLoading ? 'Loading session' : 'Waiting for session')
 
   return (
     <section className="rounded-[28px] border border-white/10 bg-slate-950/75 p-6 shadow-2xl shadow-slate-950/40 backdrop-blur">

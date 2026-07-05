@@ -3,7 +3,7 @@
   "displayName": "Sandbox Dagster Gateway",
   "issuer": "https://idp.apps.metasync.cc/realms/snd",
   "clientId": "snd-dagster-gateway",
-  "authMode": "oidc",
+  "authMode": "demo",
   "postLogoutRedirectUri": "http://localhost:5173/",
   "platforms": [
     {

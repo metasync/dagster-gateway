@@ -33,6 +33,16 @@ const registrySchema = z.object({
   postLogoutRedirectUri: z.string().url(),
   platforms: z.array(platformSchema),
   demoUsers: z.array(demoUserSchema).optional(),
+}).superRefine((registry, ctx) => {
+  registry.platforms.forEach((platform, index) => {
+    if (platform.environment !== registry.environment) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: `Platform environment must match registry environment (${registry.environment}).`,
+        path: ['platforms', index, 'environment'],
+      })
+    }
+  })
 })
 
 export function parseGatewayRegistry(input: unknown): GatewayRegistry {

@@ -69,7 +69,7 @@ push-image: validate-version ## Push the container image tagged with the package
 
 sync-version: validate-version verify-luban-ci ## Sync gateway_image_name and gateway_image_tag in luban-ci to the current package version
 	@echo "Syncing $(LUBAN_GATEWAY_CONFIG) to $(IMAGE_REPOSITORY):$(VERSION)"
-	@node -e 'const fs=require("fs"); const path=process.argv[1]; const image=process.argv[2]; const version=process.argv[3]; let text=fs.readFileSync(path,"utf8"); text=text.replace(/gateway_image_name:\\s*\".*\"/, `gateway_image_name: "${image}"`); text=text.replace(/gateway_image_tag:\\s*\".*\"/, `gateway_image_tag: "${version}"`); fs.writeFileSync(path, text);' "$(LUBAN_GATEWAY_CONFIG)" "$(IMAGE_REPOSITORY)" "$(VERSION)"
+	@node -e 'const fs=require("fs"); const path=process.argv[1]; const image=process.argv[2]; const version=process.argv[3]; const imagePattern=/^(\s*gateway_image_name:\s*)(?:"[^"]*"|\S+)\s*$$/m; const tagPattern=/^(\s*gateway_image_tag:\s*)(?:"[^"]*"|\S+)\s*$$/m; const text=fs.readFileSync(path,"utf8"); if(!imagePattern.test(text)||!tagPattern.test(text)){ console.error("Error: Failed to locate gateway_image_name/gateway_image_tag in " + path); process.exit(1); } const updated=text.replace(imagePattern, (_, prefix) => prefix + "\"" + image + "\"").replace(tagPattern, (_, prefix) => prefix + "\"" + version + "\""); fs.writeFileSync(path, updated);' "$(LUBAN_GATEWAY_CONFIG)" "$(IMAGE_REPOSITORY)" "$(VERSION)"
 
 release: validate-version ## Build, push, and sync luban-ci config for the current semantic version
 	@$(MAKE) push-image
